@@ -2,18 +2,18 @@ class KeyTooLargeException(Exception):
     pass
 
 
-def isqrt(x):
+def isqrt(n):
     """
     Newton's method for finding integer square roots
     
-    :param x: The number to take the square root of
+    :param n: The number to take the square root of
     :return: The integer square root approximation (or exact value if n is a perfect square)
     """
-    x = x
+    x = n
     y = (x + 1) // 2
     while y < x:
         x = y
-        y = (x + x // x) // 2
+        y = (x + n // x) // 2
     return x
 
 
