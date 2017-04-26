@@ -57,7 +57,7 @@ def convergent_gen(x, y):
 
 
 wiener_attack_params = {'e':0, 'n':0}
-def wiener(e, n):
+def wiener(wiener_attack_params):
     """
     Wiener's attack on RSA encryption. Works given d < (n^(1/4))/3.
     
@@ -65,6 +65,9 @@ def wiener(e, n):
     :param n: The modulus
     :return: A tuple representing of the form (private key d, p, q) where p and q are the prime factorization of n
     """
+    e = wiener_attack_params['e']
+    n = wiener_attack_params['n']
+
     g = convergent_gen(e, n)
     k, d = next(g)
     cap = isqrt(isqrt(n)) // 3
@@ -78,12 +81,14 @@ def wiener(e, n):
                 k, d = next(g)
                 continue
             p, q = (-b + discrm_sqrt) // (2 * a), (-b - discrm_sqrt) // (2 * a)
-            return int(d), int(p), int(q)
+            return int(d)
         k, d = next(g)
-    raise KeyTooLargeException("The value of the public key d is larger than (n^(1/4))/3, thus Wiener's Attack will "
-                               "not work.")
+    return -1
+    #raise KeyTooLargeException("The value of the public key d is larger than (n^(1/4))/3, thus Wiener's Attack will "
+    #                          "not work.")
 
 class WienerAttack(Attack):
     def __init__(self):
         self.params = wiener_attack_params
         self.func = wiener
+        self.out = "D"

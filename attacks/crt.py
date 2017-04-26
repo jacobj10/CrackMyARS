@@ -33,9 +33,12 @@ def prod_minus_index(arr, i):
     return total
 
 crt_attack_params = {'e': 0, 'c': [], 'n': []}
-def crt(e, c, n):
+def crt(crt_attack_params):
+    e = crt_attack_params['e']
+    c = crt_attack_params['c']
+    n = crt_attack_params['n']
     if not isinstance(c, list) or not isinstance(n, list):
-        return -2 
+        return -1
     if len(c) != e or len(n) != e:
         return -1
     m = 0
@@ -51,3 +54,4 @@ class CRTAttack(Attack):
     def __init__(self):
         self.params = crt_attack_params
         self.func = crt
+        self.out = 'M'
