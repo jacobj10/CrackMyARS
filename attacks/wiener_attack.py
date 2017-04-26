@@ -1,3 +1,5 @@
+from attacks.attack import Attack
+
 class KeyTooLargeException(Exception):
     pass
 
@@ -54,6 +56,7 @@ def convergent_gen(x, y):
         num_last, denom_last, num, denom = num, denom, num_next, denom_next
 
 
+wiener_attack_params = {'e':0, 'n':0}
 def wiener(e, n):
     """
     Wiener's attack on RSA encryption. Works given d < (n^(1/4))/3.
@@ -79,3 +82,8 @@ def wiener(e, n):
         k, d = next(g)
     raise KeyTooLargeException("The value of the public key d is larger than (n^(1/4))/3, thus Wiener's Attack will "
                                "not work.")
+
+class WienerAttack(Attack):
+    def __init__(self):
+        self.params = wiener_attack_params
+        self.func = wiener

@@ -1,5 +1,7 @@
 import gmpy
 
+from attacks.attack import Attack
+
 def find_invpow(x,n):
     """Finds the integer component of the n'th root of x,
     an integer such that y ** n <= x < (y + 1) ** n.
@@ -30,6 +32,7 @@ def prod_minus_index(arr, i):
         counter += 1
     return total
 
+crt_attack_params = {'e': 0, 'c': [], 'n': []}
 def crt(e, c, n):
     if not isinstance(c, list) or not isinstance(n, list):
         return -2 
@@ -43,3 +46,8 @@ def crt(e, c, n):
     hd = hex(i.root(e)[0])[2:]
     asc = bytes.fromhex(hd).decode('utf-8')
     return asc
+
+class CRTAttack(Attack):
+    def __init__(self):
+        self.params = crt_attack_params
+        self.func = crt
