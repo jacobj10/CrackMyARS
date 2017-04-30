@@ -11,10 +11,14 @@ decrypt_attack_params = {'c':0, 'd':0, 'n':0, 'e':0}
 def decrypt(decrypt_attack_params):
     c = decrypt_attack_params['c']
     d = decrypt_attack_params['d']
+    d = int(d)
     n = decrypt_attack_params['n']
     e = decrypt_attack_params['e']
     key = RSA.construct((n, e, d))
-    return key.decrypt(c)
+    out = key.decrypt(c)
+    if type(out) == int:
+        out = bytes.fromhex(hex(out)[2:]).decode('utf-8')
+    return out
 
 class DecryptAttack(Attack):
     def __init__(self):
@@ -90,8 +94,3 @@ if __name__ == '__main__':
         print("pem")
     print(x)
 """
-x = Key()
-x.add_pem('sosig/sausage.pem')
-x.c_from_file('sosig/flag.enc')
-
-print(x.decide())
