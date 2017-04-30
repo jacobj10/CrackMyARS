@@ -7,15 +7,14 @@ from Crypto.PublicKey import RSA
 
 import argparse
 import binascii
-decrypt_attack_params = {'c':0, 'd':0, 'n':0}
+decrypt_attack_params = {'c':0, 'd':0, 'n':0, 'e':0}
 def decrypt(decrypt_attack_params):
     c = decrypt_attack_params['c']
     d = decrypt_attack_params['d']
     n = decrypt_attack_params['n']
-    out_int = pow(c, d, n)
-    out_hex = hex(out_int)[2:]
-    asc = bytes.fromhex(out_hex).decode('utf-8')
-    return asc
+    e = decrypt_attack_params['e']
+    key = RSA.construct((n, e, d))
+    return key.decrypt(c)
 
 class DecryptAttack(Attack):
     def __init__(self):
@@ -55,8 +54,9 @@ class Key(object):
 
     def display(self, out, attack):
         if attack.out == "D":
+            out = int(out)
             if self.c and self.n:
-                return (decrypt({'c':self.c, 'd':out, 'n':self.n}))
+                return (decrypt({'c':self.c, 'd':out, 'n':self.n, 'e':self.e}))
             else:
                 return ("Private Key: " + str(out))
         elif attack.out == "M":
@@ -72,11 +72,7 @@ class Key(object):
             self.d = d
 
     def c_from_file(self, f):
-        raw = open(f, 'rb').read()
-        in_hex = raw.hex()
-        self.c = int(in_hex, 16)
-        print(self.c)   
-
+        self.c = open(f, 'rb').read().strip()
 """
 if __name__ == '__main__':
     parse = argparse.ArgumentParser()
@@ -95,7 +91,7 @@ if __name__ == '__main__':
     print(x)
 """
 x = Key()
-x.add_pem('fone/ohofone-50.pem')
-x.c_from_file('fone/flag.enc')
+x.add_pem('sosig/sausage.pem')
+x.c_from_file('sosig/flag.enc')
 
-x.decide()
+print(x.decide())
