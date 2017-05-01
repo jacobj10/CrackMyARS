@@ -7,6 +7,8 @@ from Crypto.PublicKey import RSA
 
 import argparse
 import binascii
+import pickle
+
 decrypt_attack_params = {'c':0, 'd':0, 'n':0, 'e':0}
 def decrypt(decrypt_attack_params):
     c = decrypt_attack_params['c']
@@ -76,7 +78,23 @@ class Key(object):
             self.d = d
 
     def c_from_file(self, f):
-        self.c = open(f, 'rb').read().strip()
+        self.c = open(f, 'rb').read().rstrip()
+
+    def add_multiple_c_from_file(self, files):
+        self.c = []
+        for f in files:
+            data = open(f, 'rb').read().strip()
+            data = int(data.hex(), 16)
+            self.c.append(data)
+
+    def add_multiple_n_from_file(self, files):
+        self.n = []
+        for f in files:
+            key = open(f).read()
+            key = RSA.importKey(key)
+            self.e = key.e
+            self.n.append(key.n)
+
 """
 if __name__ == '__main__':
     parse = argparse.ArgumentParser()

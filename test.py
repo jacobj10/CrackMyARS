@@ -2,7 +2,7 @@ from attacks.crt import crt
 from attacks.wiener_attack import wiener
 from attacks.basic_factor import basic_factor
 
-from decrypt import decrypt
+from decrypt import decrypt, Key
 
 def test_crt():
     e = 3 
@@ -34,3 +34,18 @@ def test_basic_factor():
 test_crt()
 test_wiener()
 test_basic_factor()
+
+x = Key()
+x.add_multiple_n_from_file(['tests/publics/key1.pem', 'tests/publics/key2.pem', 'tests/publics/key3.pem'])
+x.add_multiple_c_from_file(['tests/ciphertexts/flag1', 'tests/ciphertexts/flag2', 'tests/ciphertexts/flag3'])
+print(x.decide())
+
+x = Key()
+x.add_pem('tests/sosig/sausage.pem')
+x.c_from_file('tests/sosig/flag.enc')
+print(x.decide())
+
+x = Key()
+x.add_pem('tests/fone/ohofone-50.pem')
+x.c_from_file('tests/fone/flag.enc')
+print(x.decide())
