@@ -92,3 +92,4 @@ class WienerAttack(Attack):
         self.params = wiener_attack_params
         self.func = wiener
         self.out = "D"
+        self.name = "Wiener's Attack"

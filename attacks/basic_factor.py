@@ -20,3 +20,4 @@ class BasicFactorAttack(Attack):
         self.params = basic_factor_attack_params
         self.func = basic_factor
         self.out = "D"
+        self.name = "Basic Factor (FactorDB) Attack" 

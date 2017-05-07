@@ -55,3 +55,4 @@ class CRTAttack(Attack):
         self.params = crt_attack_params
         self.func = crt
         self.out = 'M'
+        self.name = "Chinese Remainder Theorem"
