@@ -1,9 +1,9 @@
-from attacks.crt import crt
-from attacks.wiener_attack import wiener
-from attacks.basic_factor import basic_factor
-from attacks.decrypt import decrypt
+from CrackMyARS.attacks.crt import crt
+from CrackMyARS.attacks.wiener_attack import wiener
+from CrackMyARS.attacks.basic_factor import basic_factor
+from CrackMyARS.attacks.decrypt import decrypt
 
-from utils.key import Key
+from CrackMyARS.utils.key import Key
 
 import gmpy
 
