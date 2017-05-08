@@ -1,8 +1,11 @@
 from attacks.crt import crt
 from attacks.wiener_attack import wiener
 from attacks.basic_factor import basic_factor
+from attacks.decrypt import decrypt
 
-from decrypt import decrypt, Key
+from utils.key import Key
+
+import gmpy
 
 def test_crt():
     e = 3 
@@ -48,4 +51,9 @@ print(x.decide())
 x = Key()
 x.add_pem('tests/fone/ohofone-50.pem')
 x.c_from_file('tests/fone/flag.enc')
+print(x.decide())
+
+x = Key()
+x.add_pem('tests/Burning_CTF/public-key.pem')
+x.c_from_file('tests/Burning_CTF/flag.txt')
 print(x.decide())

@@ -1,6 +1,6 @@
 import gmpy
 
-from attacks.attack import Attack
+from CrackMyARS.attacks.attack import Attack
 
 def find_invpow(x,n):
     """Finds the integer component of the n'th root of x,

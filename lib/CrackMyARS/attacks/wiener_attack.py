@@ -1,4 +1,4 @@
-from attacks.attack import Attack
+from CrackMyARS.attacks.attack import Attack
 
 class KeyTooLargeException(Exception):
     pass

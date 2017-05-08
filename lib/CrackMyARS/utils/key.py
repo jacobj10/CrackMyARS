@@ -1,7 +1,7 @@
-from attacks.crt import CRTAttack
-from attacks.wiener_attack import WienerAttack
-from attacks.basic_factor import BasicFactorAttack
-from attacks.attack import Attack
+from CrackMyARS.attacks.crt import CRTAttack
+from CrackMyARS.attacks.wiener_attack import WienerAttack
+from CrackMyARS.attacks.basic_factor import BasicFactorAttack
+from CrackMyARS.attacks.decrypt import DecryptAttack
 
 from Crypto.PublicKey import RSA
 
@@ -13,29 +13,6 @@ logger.setLevel(logging.INFO)
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 logger.addHandler(ch)
-
-decrypt_attack_params = {'c':0, 'd':0, 'n':0, 'e':0}
-def decrypt(decrypt_attack_params):
-    c = decrypt_attack_params['c']
-    d = decrypt_attack_params['d']
-    d = int(d)
-    n = decrypt_attack_params['n']
-    e = decrypt_attack_params['e']
-    key = RSA.construct((n, e, d))
-    out = key.decrypt(c)
-    if type(out) == int:
-        out = bytes.fromhex(hex(out)[2:]).decode('utf-8')
-    else:
-        padding_end = out.index(0)
-        out = out[padding_end + 1:].decode('utf-8')
-    return out
-
-class DecryptAttack(Attack):
-    def __init__(self):
-        self.params = decrypt_attack_params
-        self.func = decrypt
-        self.out = "M"
-        self.name = "Basic Decrypt"
 
 ATTACKS = [BasicFactorAttack, WienerAttack, CRTAttack, DecryptAttack]
 
@@ -81,7 +58,7 @@ class Key(object):
         if attack.out == "D":
             out = int(out)
             if self.c and self.n:
-                return (decrypt({'c':self.c, 'd':out, 'n':self.n, 'e':self.e}))
+                return (DecryptAttack().func({'c':self.c, 'd':out, 'n':self.n, 'e':self.e}))
             else:
                 return ("Private Key: " + str(out))
         elif attack.out == "M":
