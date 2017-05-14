@@ -29,6 +29,10 @@ class Key(object):
         self.e = e
         self.m = m
 
+        if (self.p and self.q):
+            if self.n and self.n != self.p * self.q:
+                raise InvalidKeyError("P and Q are not factors of N")
+            self.n = self.p * self.q
         self.logger = logger
         self.logger.info('Creating Key')
 

@@ -57,3 +57,5 @@ x = Key()
 x.add_pem('tests/Burning_CTF/public-key.pem')
 x.c_from_file('tests/Burning_CTF/flag.txt')
 print(x.decide())
+
+
