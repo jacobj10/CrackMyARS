@@ -10,17 +10,13 @@ import logging
 logger = logging.getLogger('results')
 logger.setLevel(logging.INFO)
 
-ch = logging.StreamHandler()
-ch.setLevel(logging.INFO)
-logger.addHandler(ch)
-
 ATTACKS = [BasicFactorAttack, WienerAttack, CRTAttack, DecryptAttack]
 
 class InvalidKeyError(Exception):
     pass
 
 class Key(object):
-    def __init__(self, p=None, q=None, d=None, n=None, c=None, e=None, m=None):
+    def __init__(self, p=None, q=None, d=None, n=None, c=None, e=None, m=None, verbose=False):
         self.p = p
         self.q = q
         self.d = d
@@ -33,6 +29,11 @@ class Key(object):
             if self.n and self.n != self.p * self.q:
                 raise InvalidKeyError("P and Q are not factors of N")
             self.n = self.p * self.q
+
+        ch = logging.StreamHandler()
+        ch.setLevel(logging.INFO)
+        if verbose:
+            logger.addHandler(ch)
         self.logger = logger
         self.logger.info('Creating Key')
 
