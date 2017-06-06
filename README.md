@@ -28,3 +28,8 @@ x.add_multiple_n_from_file([FILE_LIST])
 # Finally, run the internal deciding mechanism to try and retrieve either D if no message or C
 x.decide()
 ```
+
+## DH Simulator
+Currently in progress, the DH simulator is intended
+to demonstrate processes such as secret sharing, DH key exchange,
+and other crypto schemes implemented in the last few decades!
