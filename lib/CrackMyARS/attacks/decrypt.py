@@ -12,7 +12,10 @@ def decrypt(decrypt_attack_params):
     key = RSA.construct((n, e, d))
     out = key.decrypt(c)
     if type(out) == int:
-        out = bytes.fromhex(hex(out)[2:]).decode('utf-8')
+        try:
+            out = bytes.fromhex(hex(out)[2:]).decode('utf-8')
+        except ValueError:
+            pass
     else:
         if 0 in out:
             padding_end = out.index(0)

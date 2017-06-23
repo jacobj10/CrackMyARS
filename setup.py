@@ -6,7 +6,6 @@ setup(name='CrackMyARS',
         author='Joshua Jacob, Harrison Wilco',
         url='https://github.com/jacobj10/CrackMyARS',
 
-        requires=['factordb-pycli', 'pycrypto', 'gmpy'],
         provides=['CrackMyARS'],
         packages=['CrackMyARS', 'CrackMyARS.utils', 'CrackMyARS.attacks'],
         package_dir={'': 'lib'}
