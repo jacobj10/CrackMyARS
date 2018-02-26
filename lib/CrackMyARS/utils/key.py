@@ -2,6 +2,7 @@ from CrackMyARS.attacks.crt import CRTAttack
 from CrackMyARS.attacks.wiener_attack import WienerAttack
 from CrackMyARS.attacks.basic_factor import BasicFactorAttack
 from CrackMyARS.attacks.decrypt import DecryptAttack
+from CrackMyARS.attacks.brute_force import BruteForceAttack
 
 from Crypto.PublicKey import RSA
 
@@ -10,7 +11,13 @@ import logging
 logger = logging.getLogger('results')
 logger.setLevel(logging.INFO)
 
-ATTACKS = [BasicFactorAttack, WienerAttack, CRTAttack, DecryptAttack]
+ATTACKS = [
+    BasicFactorAttack,
+    WienerAttack,
+    CRTAttack,
+    DecryptAttack,
+    BruteForceAttack
+]
 
 class InvalidKeyError(Exception):
     pass
